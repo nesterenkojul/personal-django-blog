@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block content %}
+    <!-- Hero Section-->
+    <section style="background: url({% static 'img/IMG_0965.jpeg' %}); background-size: cover; background-position: center center" class="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            <h1>matter of taste</h1>
+            <h2>a genuine and chaotic blog by @nesterenkojul</h2>
+          </div>
+        </div><a href=".intro" class="continue link-scroll">Discover More</a>
+      </div>
+    </section>
+    <!-- Intro Section-->
+    <section class="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <h2 class="h3">Weird combo of topics</h2>
+            <p class="text-big"> Staying relevant with <strong>fashion</strong>,
+              finding a path in <strong>IT</strong>, unleashing creativity with <strong>recipes</strong>,
+              seeking beauty in <strong>art</strong>, making memories with <strong>travel</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="featured-posts no-padding-top">
+      <div class="container">
+        <!-- Featured Categories-->
+        {% for cat in categories %}
+        <a href="{{ cat.get_absolute_url }}">
+        <div class="row d-flex align-items-stretch">
+          {% if not forloop.first and not forloop.last %}
+            <div class="image col-lg-5"><img src="{{ cat.thumbnail.url }}" alt="..."></div>
+          {% endif %}
+          <div class="text col-lg-5">
+            <div class="text-inner d-flex align-items-center">
+              <div class="content">
+                <header class="post-header">
+                  <h2 class="h2">{{ cat.title }}</h2>
+                </header>
+                <p>{{ cat.overview|linebreaks|truncatechars:120 }}</p>
+              </div>
+            </div>
+          </div>
+          {% if forloop.first or forloop.last %}
+            <div class="image col-lg-5"><img src="{{ cat.thumbnail.url }}" alt="..."></div>
+          {% endif %}
+        </div>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+         <!-- Featured Posts
+        {% for obj in featured %}
+        <div class="row d-flex align-items-stretch">
+          {% if not forloop.first and not forloop.last %}
+          <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+          {% endif %}
+          <div class="text col-lg-7">
+            <div class="text-inner d-flex align-items-center">
+              <div class="content">
+                <header class="post-header">
+                  <div class="category">
+                    {% for cat in obj.categories.all %}
+                    <a href="#">{{ cat }}</a>
+                    {% endfor %}
+                  </div>
+                  <a href="{{ obj.get_absolute_url }}"><h2 class="h4">{{ obj.title }}</h2></a>
+                </header>
+                <p>{{ obj.overview }}</p>
+                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                    <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid"></div>
+                    <div class="title"><span>John Doe</span></div></a>
+                  <div class="date"><i class="icon-clock"></i> {{ obj.posted|timesince }} ago </div>
+                  <div class="comments"><i class="icon-comment"></i>{{ obj.comment_count }}</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+          {% if forloop.first or forloop.last %}
+          <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>-->
+    <!-- Divider Section-->
+    <section style="background: url({% static 'img/divider.jpeg' %}); background-size: cover; background-position: center bottom" class="divider">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h2>A blog by an introverted and self-conscious girl, who is studying Computer Science but spends all her time consuming fashion and food content.</h2><a href="/about/" class="hero-link">about her</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Latest Posts -->
+    <section class="latest-posts"> 
+      <div class="container">
+        <header> 
+          <h2>Latest from the blog</h2>
+          <p class="text-big">Don't judge a post by its publication date.</p>
+        </header>
+        <div class="row">
+          {% for obj in recent %}
+          <div class="post col-md-4">
+            <div class="post-thumbnail"><a href="{{ obj.get_absolute_url }}"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+            <div class="post-details">
+              <div class="post-meta d-flex justify-content-between">
+                <div class="date">{{ obj.posted }}</div>
+                <div class="category">
+                  {% for cat in obj.categories.all %}
+                    <a href="#">{{ cat }}</a>
+                    {% endfor %}
+                </div>
+              </div><a href="{{ obj.get_absolute_url }}">
+                <h3 class="h4">{{ obj.title }}</h3></a>
+              <p class="text-muted">{{ obj.overview }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- Possible Newsletter Section
+    <section class="newsletter no-padding-top">    
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Subscribe to Newsletter</h2>
+            <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="col-md-8">
+            <div class="form-holder">
+              <form action="#">
+                <div class="form-group">
+                  <input type="email" name="email" id="email" placeholder="Type your email address">
+                  <button type="submit" class="submit">Subscribe</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>-->
+    <!-- Gallery Section-->
+    <section class="gallery no-padding">
+      <div class="row">
+        {% for obj in featured %}
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><a href="{{ obj.get_absolute_url }}" class="image"><img src="{{ obj.thumbnail.url }}" alt="..." class="img-fluid">
+              <div class="overlay d-flex align-items-center justify-content-center"><i class="gg-eye"></i></div></a></div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endblock content %}
