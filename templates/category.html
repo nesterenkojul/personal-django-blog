@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+  {% block content %}
+    <div class="container">
+      <div class="row">
+        <main class="posts-listing col-lg-8">
+          <section style="color: white; background: url({{ category.thumbnail.url }}); background-size: cover; background-position: center center" >
+            <div class="col-6 offset-3 mt-5 mb-5">
+            <h2 class="h1"><a href="{{ category.get_absolute_url }}" style="color: white">{{ category }}</a></h2> <br>
+             <p>{{ category.overview }}</p>
+            </div>
+          </section>
+          <div class="container">
+            <br>
+            <div class="row">
+              <!-- post -->
+              {% for post in post_list %}
+              <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="category">
+                      {% for cat in post.categories.all %}
+                        <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
+                      {% endfor %}
+                    </div>
+                  </div><a href="{{ post.get_absolute_url }}">
+                    <h3 class="h4">{{ post.title }}</h3></a>
+                  <p class="text-muted">{{ post.overview }}</p>
+                  <div class="post-footer d-flex align-items-center"><!--<a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{% static 'img/avatar-1.jpg' %}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>John Doe</span></div></a>-->
+                    <div class="date"><i class="icon-clock"></i> {{ post.posted }}</div>
+                    <div class="views"><i class="icon-eye"></i> {{ post.get_view_count }}</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>{{ post.get_comment_count }}</div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-template d-flex justify-content-center">
+                {% if post_list.has_previous %}
+                <li class="page-item"><a href="?page={{ post_list.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                <li class="page-item"><a href="?page={{ post_list.previous_page_number }}" class="page-link">{{ post_list.previous_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item"><a href="?page={{ post_list.number }}" class="page-link active">{{ post_list.number }}</a></li>
+                {% if post_list.has_next %}
+                <li class="page-item"><a href="?page={{ post_list.next_page_number }}" class="page-link">{{ post_list.next_page_number }}</a></li>
+                <li class="page-item"><a href="?page={{ post_list.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </main>
+         {% include 'sidebar.html' with recent=recent categories=categories %}
+      </div>
+    </div>
+
+  {% endblock content %}
