@@ -16,3 +16,7 @@ Functionality includes:
 
 <br>
 The original HTML template <a href="https://bootstrapious.com/p/bootstrap-blog">here</a>.
+
+<br>
+<br>
+<strong>Check out my blog via <a href="http://tastematters.herokuapp.com/">this link</a>. Some tasty content there :)</strong>
